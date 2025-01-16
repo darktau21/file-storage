@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import cors from 'cors';
 import express from 'express';
 
 import { getAuthRouter } from './auth/auth.router';
@@ -23,6 +24,7 @@ async function init() {
         await filesService.init();
 
         const app = express();
+        app.use(cors());
         app.use(express.json(), getAuthRouter());
         app.use(getFilesRouter());
         app.use(
